@@ -1,0 +1,7 @@
+DEPENDENCIES
+  custom_nfs
+    path: .
+    metadata: true
+
+GRAPH
+  custom_nfs (0.1.0)
