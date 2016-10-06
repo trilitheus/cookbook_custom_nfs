@@ -5,3 +5,6 @@ license 'all_rights'
 description 'Installs/Configures custom_nfs'
 long_description 'Installs/Configures custom_nfs'
 version '0.1.0'
+
+depends 'firewalld', '~> 1.1.0'
+depends 'nfs', '~> 2.2.0'
