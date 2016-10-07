@@ -9,6 +9,8 @@ transport:
 
 provisioner:
   name: dokken
+  client_rb:
+    environment: kitchen
 
 verifier:
   name: inspec

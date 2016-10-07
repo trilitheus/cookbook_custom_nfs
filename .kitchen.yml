@@ -4,6 +4,8 @@ driver:
 
 provisioner:
   name: chef_zero
+  client_rb:
+    environment: kitchen
 
 verifier:
   name: inspec
