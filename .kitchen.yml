@@ -18,7 +18,21 @@ platforms:
       box_url: ~/packer_vbox_builds/packer_centos7_virtualbox.box
 
 suites:
-  - name: default
+  - name: server
     run_list:
       - recipe[custom_nfs::default]
+      - role[nfs_server]
+    attributes:
+    driver_config:
+      vagrantfiles:
+        - vagrant_disk.rb
+      network:
+        - ['private_network', {ip: '33.33.33.2'}]
+  - name: server
+    run_list:
+      - recipe[custom_nfs::default]
+      - role[nfs_client]
+    driver_config:
+      network:
+        - ['private_network', {ip: '33.33.33.3'}]
     attributes:
