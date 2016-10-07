@@ -7,4 +7,5 @@ long_description 'Installs/Configures custom_nfs'
 version '0.1.0'
 
 depends 'firewalld', '~> 1.1.0'
+depends 'lvm', '~> 3.0.0'
 depends 'nfs', '~> 2.2.0'
