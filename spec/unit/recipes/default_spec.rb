@@ -23,5 +23,9 @@ describe 'custom_nfs::default' do
     it 'adds the nfs service to the firewall rules' do
       expect(chef_run).to add_firewalld_service('nfs')
     end
+
+    it 'creates the /data mountpoint' do
+      expect(chef_run).to create_directory('/data')
+    end
   end
 end
