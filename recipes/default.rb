@@ -8,7 +8,7 @@ share = node['custom_nfs']['nfs_share']
 directory share
 
 if node['roles'].include? 'nfs_server'
-  include_recipe 'custom_nfs::lvm' unless node.chef_environment == 'kitchen'
+  include_recipe 'custom_nfs::lvm' unless node['virtualization']['system'] == 'docker'
 
   include_recipe 'nfs::server'
 
