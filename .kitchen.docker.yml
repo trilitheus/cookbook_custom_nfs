@@ -14,17 +14,23 @@ provisioner:
 
 verifier:
   name: inspec
+  format: doc
 
 platforms:
   - name: centos-7
     driver:
-      image: centos:7
+      image: centos:7.2.1511
       intermediate_instructions:
         - RUN yum clean all
-        - RUN yum -y install net-tools lsof iproute
+        - RUN yum -y install net-tools lsof # iproute deltarpm
       pid_one_command: /usr/lib/systemd/systemd
 
 suites:
-  - name: default
+  - name: server
     run_list:
       - recipe[custom_nfs::default]
+      - role[nfs_server]
+  - name: client
+    run_list:
+      - recipe[custom_nfs::default]
+      - role[nfs_client]
