@@ -28,7 +28,7 @@ suites:
         - vagrant_disk.rb
       network:
         - ['private_network', {ip: '33.33.33.2'}]
-  - name: server
+  - name: client
     run_list:
       - recipe[custom_nfs::default]
       - role[nfs_client]
