@@ -1,16 +1,17 @@
 include_recipe 'nfs::default'
 
-firewalld_service 'nfs' unless node['virtualization']['system'] == 'docker'
-
-share = node['custom_nfs']['nfs_share']
-
 # We need the directory created on both client and server
+share = node['custom_nfs']['nfs_share']
 directory share
 
 if node['roles'].include? 'nfs_server'
-  include_recipe 'custom_nfs::lvm' unless node['virtualization']['system'] == 'docker'
+  unless node['virtualization']['system'] == 'docker'
+    include_recipe 'custom_nfs::lvm'
+    firewalld_service 'nfs'
+    firewalld_service 'mountd'
+  end
 
-  include_recipe 'nfs::server'
+  include_recipe 'nfs::server4'
 
   nfs_export share do
     network node['custom_nfs']['share_to']
@@ -21,12 +22,14 @@ if node['roles'].include? 'nfs_server'
 end
 
 if node['roles'].include? 'nfs_client'
+  include_recipe 'nfs::client4'
+
   mount share do
-    device "#{node['custom_mysql']['mount_from']}:#{share}"
+    device "#{node['custom_nfs']['mount_from']}:#{share}"
     fstype 'nfs'
     action [:mount, :enable]
     options node['custom_nfs']['mount_options']
     retries 3
-    retries_delay 3
+    retry_delay 3
   end
 end
