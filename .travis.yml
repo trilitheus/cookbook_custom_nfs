@@ -12,9 +12,10 @@ cache: apt
 
 services: docker
 
-env:
-  matrix:
-    - INSTANCE=default-centos-7
+# env:
+  # matrix:
+    # - INSTANCE=default-centos-7
+    # - INSTANCE=default-centos-7
 
 # Don't bundle install
 install: echo 'skip bundle install'
@@ -32,4 +33,4 @@ script:
   - /opt/chefdk/embedded/bin/foodcritic --version
   - /opt/chefdk/embedded/bin/foodcritic . --exclude spec -f any -t ~FC064 -t ~FC065 -t ~FC019
   - /opt/chefdk/embedded/bin/rspec -f doc
-  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen test ${INSTANCE}
+  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen test -c
