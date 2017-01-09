@@ -19,10 +19,10 @@ verifier:
 platforms:
   - name: centos-7
     driver:
-      image: centos:7.2.1511
+      image: centos:7.3.1611
       intermediate_instructions:
         - RUN yum clean all
-        - RUN yum -y install net-tools lsof # iproute deltarpm
+        - RUN yum -y install net-tools lsof
       pid_one_command: /usr/lib/systemd/systemd
 
 suites:
